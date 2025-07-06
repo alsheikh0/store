@@ -42,7 +42,7 @@ public class UserController {
     @PostMapping("register")
     public UserDto registerUser(
             @RequestBody registerUserRequest request,
-            UriComponentsBuilder uriBuilder
+
     ) {
         return userService.registerUser(request);
     }
@@ -85,4 +85,5 @@ public class UserController {
     public ResponseEntity<Void> handleAccessDenied(){
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
+    //just comments
 }
