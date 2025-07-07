@@ -1,19 +1,10 @@
-# The Ultimate Spring Boot Course
+# a Spring Boot Project for a Local Store application
 
-This repository contains the starter project for Part 2 of my Spring Boot course:
+This repository contains the a store application built using Spring Boot and MySql related technologies
 
-[https://codewithmosh.com/p/spring-boot-building-apis](https://codewithmosh.com/p/spring-boot-building-apis)
 
 ## About this Repository 
 
-This project is based on the final project from Part 1 of the course, but I’ve cleaned it up and removed unnecessary playground code so we can focus on building APIs in Part 2.
+This project will be worked on gradually adding security further
 
-You’ll be cloning this repository and coding along with me as we extend the project.
-
-To get started, clone the repository to your local machine:
-
-```sh
-git clone https://github.com/mosh-hamedani/spring-api-starter
-
-cd spring-api
-```
+Current Tech stack: Spring Boot, Spring Data JPA, Hibernate, MYSQL, JPA BUDDY, Maven, Lombok.
