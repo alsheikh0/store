@@ -12,7 +12,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Map;
@@ -41,7 +40,7 @@ public class UserController {
 
     @PostMapping("register")
     public UserDto registerUser(
-            @RequestBody registerUserRequest request,
+            @RequestBody registerUserRequest request
 
     ) {
         return userService.registerUser(request);
