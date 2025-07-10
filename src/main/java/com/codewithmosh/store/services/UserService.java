@@ -12,6 +12,7 @@ import com.codewithmosh.store.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,10 +20,11 @@ import java.util.List;
 @AllArgsConstructor
 @Service
 @Builder
-public class UserService {
+public class UserService   {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    public List<UserDto> getAllUsers(String sortBy) {
+    private final PasswordEncoder passwordEncoder;
+    public List<UserDto> getAllUsers() {
         var users = userRepository.getAll();
         return userMapper.toDto(users);
     }
@@ -37,7 +39,7 @@ public class UserService {
         var user = new User();
         user.setName(request.getName());
         user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
         userRepository.save(user);
         return userMapper.toDto(user);
 
@@ -67,4 +69,9 @@ public class UserService {
         userRepository.save(user);
         return ResponseEntity.ok().build();
     }
+
+
+
+
+
 }
