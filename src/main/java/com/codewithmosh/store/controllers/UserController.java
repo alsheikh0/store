@@ -28,7 +28,7 @@ public class UserController {
             @RequestParam( required = false, defaultValue = "name") String sortBy
     ){
 
-        return userService.getAllUsers(sortBy);
+        return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
