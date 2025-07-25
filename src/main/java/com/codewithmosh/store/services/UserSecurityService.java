@@ -10,15 +10,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 
-@AllArgsConstructor
 @Service
+@AllArgsConstructor
 public class UserSecurityService implements UserDetailsService {
-
     private final UserRepository userRepository;
-
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        var user = userRepository.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException("user not found"));
-        return new User(user.getEmail(), user.getPassword(), Collections.emptyList());
+        var user = userRepository.findByEmail(email).orElseThrow(()->new UsernameNotFoundException("user not found"));
+
+        return new User(
+                user.getEmail(),
+                user.getPassword(),
+                Collections.emptyList()
+        );
     }
 }

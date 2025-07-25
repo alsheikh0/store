@@ -25,8 +25,7 @@ public class UserController {
 
     @GetMapping("all")
     public List<UserDto> getUsers(
-            @RequestParam( required = false, defaultValue = "name") String sortBy
-    ){
+            ) {
 
         return userService.getAllUsers();
     }
@@ -70,18 +69,18 @@ public class UserController {
     }
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<Void> handleUserNotFound(){
+    public ResponseEntity<Void> handleUserNotFound() {
         return ResponseEntity.notFound().build();
     }
 
     @ExceptionHandler(DuplicateUserException.class)
-    public ResponseEntity<Map<String, String>> handleDuplicateUser(){
+    public ResponseEntity<Map<String, String>> handleDuplicateUser() {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).
                 body(Map.of("error", "user already exists with this email"));
     }
 
     @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<Void> handleAccessDenied(){
+    public ResponseEntity<Void> handleAccessDenied() {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
     //just comments

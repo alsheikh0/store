@@ -7,5 +7,14 @@ spring:
     password: root@2726
   jpa:
     show-sql: true
+  jwt:
+    secret: ${JWT_SECRET}
+    accessTokenExpiration: 300
+    refreshTokenExpiration: 604800
 server:
   port: 8081
+logging:
+  level:
+    org:
+      springframework:
+        security: ERROR

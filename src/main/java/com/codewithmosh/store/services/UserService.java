@@ -3,6 +3,7 @@ package com.codewithmosh.store.services;
 import com.codewithmosh.store.dtos.changePasswordRequest;
 import com.codewithmosh.store.dtos.registerUserRequest;
 import com.codewithmosh.store.dtos.updateUserRequest;
+import com.codewithmosh.store.entities.Role;
 import com.codewithmosh.store.entities.User;
 import com.codewithmosh.store.exceptions.AccessDeniedException;
 import com.codewithmosh.store.exceptions.UserNotFoundException;
@@ -20,10 +21,11 @@ import java.util.List;
 @AllArgsConstructor
 @Service
 @Builder
-public class UserService   {
+public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+
     public List<UserDto> getAllUsers() {
         var users = userRepository.getAll();
         return userMapper.toDto(users);
@@ -31,7 +33,7 @@ public class UserService   {
 
     public UserDto getUserById(Long id) {
         var user = userRepository.getUserBy(id).orElse(null);
-        if( user == null) throw new UserNotFoundException("no user with that id");
+        if (user == null) throw new UserNotFoundException("no user with that id");
         return userMapper.toDto(user);
     }
 
@@ -40,6 +42,7 @@ public class UserService   {
         user.setName(request.getName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setRole(Role.USER);
         userRepository.save(user);
         return userMapper.toDto(user);
 
@@ -47,9 +50,9 @@ public class UserService   {
 
     public UserDto updateUser(updateUserRequest request, Long id) {
         var user = userRepository.getUserBy(id).orElse(null);
-        if( user == null) throw new UserNotFoundException("no user with that id");
-        if(request.getEmail() != null) user.setEmail(request.getEmail());
-        if(request.getName() != null) user.setName(request.getName());
+        if (user == null) throw new UserNotFoundException("no user with that id");
+        if (request.getEmail() != null) user.setEmail(request.getEmail());
+        if (request.getName() != null) user.setName(request.getName());
         userRepository.save(user);
         return userMapper.toDto(user);
 
@@ -57,21 +60,19 @@ public class UserService   {
 
     public void deleteUser(Long id) {
         var user = userRepository.getUserBy(id).orElse(null);
-        if( user == null) throw new UserNotFoundException("no user with that id");
+        if (user == null) throw new UserNotFoundException("no user with that id");
         userRepository.delete(user);
     }
 
     public ResponseEntity<?> changePassword(Long id, changePasswordRequest request) {
         var user = userRepository.getUserBy(id).orElse(null);
-        if( user == null) throw new UserNotFoundException("no user with that id");
-        if(!request.getOldPassword().equals(user.getPassword())) throw new AccessDeniedException("old passwords do not match");
-        if(request.getNewPassword() != null) user.setPassword(request.getNewPassword());
+        if (user == null) throw new UserNotFoundException("no user with that id");
+        if (!request.getOldPassword().equals(user.getPassword()))
+            throw new AccessDeniedException("old passwords do not match");
+        if (request.getNewPassword() != null) user.setPassword(request.getNewPassword());
         userRepository.save(user);
         return ResponseEntity.ok().build();
     }
-
-
-
 
 
 }
