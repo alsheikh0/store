@@ -1,16 +1,12 @@
 spring:
   application:
-    name: store
-  datasource:
-    url: jdbc:mysql://localhost:3306/store_api?createDatabaseIfNotExist=true
-    username: root
-    password: root@2726
-  jpa:
-    show-sql: true
+    name: Store API
   jwt:
     secret: ${JWT_SECRET}
     accessTokenExpiration: 7200
     refreshTokenExpiration: 604800
+  profiles:
+    active: dev
 server:
   port: 8082
 logging:
