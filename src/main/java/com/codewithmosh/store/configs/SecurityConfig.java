@@ -32,7 +32,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(a -> a.requestMatchers("/users/all")
 
-                .permitAll().requestMatchers("users/{id}").permitAll().requestMatchers("/auth/login").permitAll().requestMatchers("/auth/refresh").permitAll().requestMatchers("/auth/validate").permitAll().requestMatchers("/admin/**").hasRole(Role.ADMIN.name())
+                .permitAll().requestMatchers("users/{id}").permitAll().requestMatchers("/auth/login").permitAll().requestMatchers("/auth/refresh").permitAll().requestMatchers("/users/register").permitAll().requestMatchers("/admin/**").hasRole(Role.ADMIN.name())
+                .requestMatchers("/carts/**").permitAll()
 
                 .anyRequest().authenticated()).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class).exceptionHandling(c ->
         {

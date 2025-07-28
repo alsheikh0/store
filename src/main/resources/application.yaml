@@ -9,10 +9,10 @@ spring:
     show-sql: true
   jwt:
     secret: ${JWT_SECRET}
-    accessTokenExpiration: 300
+    accessTokenExpiration: 7200
     refreshTokenExpiration: 604800
 server:
-  port: 8081
+  port: 8082
 logging:
   level:
     org:

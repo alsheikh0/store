@@ -12,6 +12,8 @@ import com.codewithmosh.store.mappers.UserMapper;
 import com.codewithmosh.store.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final Logger logger = org.slf4j.LoggerFactory.getLogger(UserService.class);
 
     public List<UserDto> getAllUsers() {
         var users = userRepository.getAll();
@@ -39,10 +42,12 @@ public class UserService {
 
     public UserDto registerUser(registerUserRequest request) {
         var user = new User();
+        logger.info("user created {}", user);
         user.setName(request.getName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(Role.USER);
+        logger.info("user populated {}", user);
         userRepository.save(user);
         return userMapper.toDto(user);
 
